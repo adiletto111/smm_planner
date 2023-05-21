@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_URI} !^/src/
+RewriteCond %{REQUEST_URI} !^/assets/
+RewriteCond %{REQUEST_URI} !^/resource/
+RewriteCond %{REQUEST_URI} !^/data.json
+RewriteRule ^(.*)$ /index.php?route=$1 [L]
