@@ -6,7 +6,8 @@ class Login
 {
     public function run()
     {
-        if($_POST){
+        $message = null;
+        if(isset($_POST['email'], $_POST['password'])){
             $pdo = \App\Service\DB::get();
             $stmt = $pdo->prepare("
                 SELECT 
@@ -25,11 +26,20 @@ class Login
                 $_SESSION['auth'] = $user;
                 header('Location: /');
                 return;
+            } else{
+                $message = 'Вы ввели неверные данные, пожалуйста перепроверьте и попробуйте снова';
             }
         }
        $view = new \App\View\Login();
        $view -> render([
-        'title' => 'Авторизация'
+        'title' => 'Авторизация',
+        'message' => $message,
        ]); 
+    }
+
+    public function runLogout()
+    {
+        unset($_SESSION['auth']);
+        header('Location:/');
     }
 }

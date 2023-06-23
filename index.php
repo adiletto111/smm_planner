@@ -10,12 +10,30 @@ if(! isset($_SESSION['auth']) && $_SERVER['REQUEST_URI'] !== '/login'){
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', function(){
-        echo 'HelloMyFriend';
+        $controller = new App\Controller\Main();
+        $controller->run();
+        print_r($_SESSION['auth']);
     });
     $r->addRoute(['GET', 'POST'], '/login', function(){
         $controller = new App\Controller\Login();
         $controller->run();
     });
+    $r->addRoute(['GET', 'POST'], '/logout', function(){
+        $controller = new App\Controller\Login();
+        $controller->runLogout();
+    });
+    # ControllerUsers routes
+    if(isset($_SESSION['auth']) && (int)$_SESSION['auth']['privilege'] == 1){
+        $r->addRoute('GET', '/users', function(){
+            $controller = new App\Controller\Users();
+            $controller->run();
+            print_r($_SESSION['auth']);
+        });
+        $r->addRoute(['GET', 'POST'], '/users/add', function(){
+            $controller = new App\Controller\Users();
+            $controller->runAdd();
+        });
+    }      
 });
 
 // Fetch method and URI from somewhere

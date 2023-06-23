@@ -14,12 +14,20 @@ class Login extends Base
                                 <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
                                     <div class="push-30-t push-50 animated fadeIn">
                                         <!-- Login Title -->
-                                        <div class="text-center">
+                                        <div class="text-center push 20">
                                             <i class="fa fa-4x fa-rocket text-warning"></i>
                                             <h2 class="text-muted push-15-t">CodeGuru.Planner</h2>
                                         </div>
                                         <!-- END Login Title -->
-
+                                        <?php 
+                                            if(isset($data['message'])){
+                                                ?>
+                                                    <div class="alert alert-warning alert-dismissable">
+                                                        <?= $data['message'];?>
+                                                    </div>
+                                                <?php
+                                            }
+                                        ?>    
                                         <!-- Login Form -->
                                         <!-- jQuery Validation (.js-validation-login class is initialized in js/pages/base_pages_login.js) -->
                                         <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
